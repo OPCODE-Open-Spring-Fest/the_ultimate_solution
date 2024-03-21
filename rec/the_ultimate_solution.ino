@@ -1,32 +1,18 @@
-// Include all required libraries for the tasks u infer from the provided snippet.
-#include <Arduino.h> // Include library for Arduino
-                     // Include library for I2C connection
-                     // Include library for temperature and humidity sensor
-                     // Include library for keypad
-                     // Include library for LCD
-                     // Include library for servo motor
-                     // Include library for the BH1750 light sensor
+// SMART HOME AUTOMATION AND SECURITY
+// TASKS - USE SENSORS(TEMP, HUMIDITY, GAS, LIGHT) , KEYPAD , LCD , SERVO MOTOR .
+// Include all required libraries for the tasks you infer from the provided task.
+#include <Arduino.h> 
 
-#define // Define the DHT sensor model
-
-DHT(, ); // Instantiate DHT sensor object
-Servo;   // Instantiate servo object
 
 // initialize object for liquidcrystal library and define pins
 
-#define gaspin    // define pins for gas sensor
-
-#define buzzerpin // define pins for buzzer
-
-#define DHTPIN    // define pins  for temperature and humidity sensor
-
-#define servopin  // define pins for servo
+// define pins for gas sensor,buzzer,temperature and humidity sensor and servo.
  
 const byte ROWS = ; // define number of rows for the keypad
-const byte COLS = ; // define number of clolumns for the keypad
+const byte COLS = ; // define number of columns for the keypad
 // define pins for keypad
-byte rowPins[ROWS] = {8, 2, 3, 4};
-byte colPins[COLS] = {5, 6, 7};
+byte rowPins[ROWS] = {};
+byte colPins[COLS] = {};
 
 #define Password_Length                 // define password length
 char Data[Password_Length];             // variable to store entered password
@@ -42,26 +28,11 @@ char keys[ROWS][COLS] =
 
 };
 
-// create & initilaize keypad object
-Keypad customKeypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
-
-// Instantiate an object for the BH1750 sensor
-
-
 void setup()
 {
-    Serial.begin(9600);                        // initilaize serial communication with proper syntax
-                                               // Initialize the I2C communication with proper syntax
-                                               // initilaize dht sensor object with proper syntax
-                                               // initilaize light sensor object with proper syntax
-                                               // initilize servo object with proper syntax
-                                               // initilize lcd object with proper syntax
-    lcd.print("THE ULTIMATE SECURITY SYSTEM"); // Text to print once while starting.
-    delay(2000);
-    lcd.clear();
-    lcd.print("SYSTEM ACTIVATED");
-    delay(1000);
-    lcd.clear();
+    //initialize all required parameters and objects to complete the task.
+    Serial.begin(9600);                       
+    //print on LCD "THE ULTIMATE AUTOMATION AND SECURITY SYSTEM" once.
 }
 
 void loop()
@@ -77,9 +48,8 @@ void loop()
         Open();
 
     // Read temperature and humidity values from the sensor
-    float temperature = ; // Read temperature as Celsius (default) using appropriate function
-    float humidity = ;    // Read humidity as percentage using appropriate function
-
+    float temperature = ; // Read temperature in Celsius.
+    float humidity = ;    // Read humidity as percentage.
     // Check if any reading failed(unable to read) and exit (to try again)
     if ()
     {
@@ -88,17 +58,15 @@ void loop()
     }
     delay(); // Wait for 1 seconds between readings
 
-    // print temperature and humidity readings from sensor on lcd.
+    // print readings from sensor on lcd.
 
     // Read smoke/co2 level from the sensor
     float gasval;
     gasval = ;
     // map ideal reading of gas sensor per cent.
+    // Print the Gas intensity value on LCD.
 
-    // Print the Gas intensity value on LCD
-
-    float lux = ; // Read light intensity in lux from the sensor
-
+    // Read light intensity from the sensor
     // Print the light intensity value
 
     // SET ALL ALERTS ON A BUZZER -->CHANGE FREQUENCY OF ALERTS FOR CHANGING VALUE OF INTENSITIES.
@@ -162,7 +130,7 @@ void clearData()
 {
     while (data_count != 0)
     {
-        Data[data_count--] = 0;
+        Data[data_count-] = 0;
     }
     return;
 }
