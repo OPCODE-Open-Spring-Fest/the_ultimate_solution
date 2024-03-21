@@ -1,4 +1,6 @@
+# Project Tour
 
+In the 'rec' folder ,you'll find a single file with a '.ino' extension. This file is where you should make all your changes, simply open this file to access the Arduino code and update it as needed. If you have any questions or need assistance with the changes feel free to ask!.
 
 ```bash
 |   .gitignore
@@ -30,5 +32,5 @@
 |       pre-commit
 |
 \---rec
-        thechallenge.txt
+        the_ultimate_solution.ino
 ```
