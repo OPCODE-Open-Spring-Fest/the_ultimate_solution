@@ -9,8 +9,10 @@ In the 'rec' folder ,you'll find a single file with a '.ino' extension. This fil
 |   package-lock.json
 |   package.json
 |   README.md
-|
+|   
 +---.github
+|   |   pull_request_template.md
+|   |   
 |   +---Contributor_Guide
 |   |       commiting.md
 |   |       Contributing.md
@@ -24,7 +26,9 @@ In the 'rec' folder ,you'll find a single file with a '.ino' extension. This fil
 |   |       pr.md
 |   |
 |   \---workflows
+|           checklabels.yaml
 |           commitlint.yaml
+|           label-checker.js
 |           prmerged.yaml
 |
 +---.husky
