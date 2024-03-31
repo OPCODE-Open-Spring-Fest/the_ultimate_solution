@@ -2,35 +2,43 @@
 // TASKS - USE SENSORS(TEMP, HUMIDITY, GAS, LIGHT) , KEYPAD , LCD , SERVO MOTOR .
 // Include all required libraries for the tasks you infer from the provided task.
 #include <Arduino.h> 
-
-
+#include<keypad.h>
+#include<string.h>
 // initialize object for liquidcrystal library and define pins
 
 // define pins for gas sensor,buzzer,temperature and humidity sensor and servo.
  
-const byte ROWS = ; // define number of rows for the keypad
-const byte COLS = ; // define number of columns for the keypad
+const byte ROWS = 4; // define number of rows for the keypad
+const byte COLS = 4; // define number of columns for the keypad
 // define pins for keypad
-byte rowPins[ROWS] = {};
-byte colPins[COLS] = {};
+byte rowPins[ROWS] = {13,12,11,10};
+byte colPins[COLS] = {7,6,5,4};
 
-#define Password_Length                 // define password length
+#define Password_Length  5          // define password length
 char Data[Password_Length];             // variable to store entered password
 char Master[Password_Length] = "12345"; // set your password here in any variable.
-byte data_count = 0, master_count = 0;  // count password characters(entered and preset);
+byte data_count = 0, master_count = 5;  // count password characters(entered and preset);
 bool Pass_is_good;
 bool door = false;
 char customKey;
- 
+#define buzzerPin 9;
 // define the values of each buttons of the keyboard.
-char keys[ROWS][COLS] =
-    {
-
-};
-
+char keys[ROWS][COLS] ={{'1','2','3','A'}
+                        {'4','5','6','B'}
+                        {'7','8','9','C'}
+                        {'*','0','#','D'}
+                        };
+Keypad customKeypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 void setup()
 {
     //initialize all required parameters and objects to complete the task.
+    for(int i=0;i<ROWS;i++){
+      pinMode(rowPins[i],INPUT);
+    }
+    for(int i=0;i<COLS;i++){
+      pinMode(colPins[i],INPUT);
+    }
+    pinMode(buzzerPin,OUTPUT);
     Serial.begin(9600);                       
     //print on LCD "THE ULTIMATE AUTOMATION AND SECURITY SYSTEM" once.
 }
@@ -40,7 +48,7 @@ void loop()
     // Secure door using password unlocking.
     if (door == true)
     {
-        customKey = ; // Take input using appropriate function
+        customKey = customKeypad.getKey(); // Take input using appropriate function
         if (customKey == '#')
             door = false;
     }
@@ -91,13 +99,17 @@ void loop()
     else if (humidity > 80)
 }
 // function to open the gate by rotating servo if correct password entered.
+
 void Open()
 {
     customKey = customKeypad.getKey(); // take input using appropriate function.
     if (customKey)
     {
-        Data[data_count] = customKey;
-        //alter value of data_count every time a input is received.
+
+      Data[data_count] = customKey;
+      //alter value of data_count every time a input is received.
+      data_count++;
+
     }
 
     // compare the entered password with preset password
@@ -106,17 +118,21 @@ void Open()
         if (!strcmp(Data, Master)) // if password is true
         {
              // Mention function to open the door using servo.
-            door = ; // set value of door(bool type) as open.
-            delay(); //give some delay
+             ServoOpen();
+            door = true; // set value of door(bool type) as open.
+            delay(1000); //give some delay
         }
         else // mention circumstances after entering wrong password.
         {
              // beep alarm once
+             tone(buzzerPin,1000,1000)
              //set value of door(bool type) as close.
+             door=false;
         }
         delay(1000);
 
          //Mention function to clear the entered data.
+        clearData();
     }
 }
 
@@ -130,7 +146,8 @@ void clearData()
 {
     while (data_count != 0)
     {
-        Data[data_count-] = 0;
+        Data[data_count--] = 0;
     }
     return;
 }
+
